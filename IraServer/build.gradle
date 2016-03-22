@@ -2,6 +2,7 @@ group 'xlo'
 version '1.0'
 
 apply plugin: 'java'
+apply plugin: 'idea'
 
 sourceCompatibility = 1.8
 
@@ -9,6 +10,15 @@ repositories {
     mavenLocal()
     jcenter()
     mavenCentral()
+}
+
+sourceSets {
+    main {
+        resources {
+            srcDir 'src/main/resources'
+            srcDir 'src/main/clojure'
+        }
+    }
 }
 
 dependencies {

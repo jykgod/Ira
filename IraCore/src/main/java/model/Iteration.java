@@ -14,6 +14,7 @@ import java.util.List;
  */
 public class Iteration implements JsonAble {
 
+    private String id;
     private Date from, to;
     private List<String> stories;
 
@@ -21,7 +22,8 @@ public class Iteration implements JsonAble {
         this.stories = new ArrayList<>();
     }
 
-    public Iteration(Date from, Date to, List<String> stories) {
+    public Iteration(String id, Date from, Date to, List<String> stories) {
+        this.id = id;
         this.from = from;
         this.to = to;
         this.stories = stories;
@@ -31,6 +33,7 @@ public class Iteration implements JsonAble {
     public String toJsonString() {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("clazz", this.getClass().getName());
+        jsonObject.put("id", this.getId());
         jsonObject.put("from", this.getFrom().getTime() + "");
         jsonObject.put("to", this.getTo().getTime() + "");
         JSONArray jsonArray = new JSONArray();
@@ -46,6 +49,7 @@ public class Iteration implements JsonAble {
             throw new JsonClassNotMatchException();
         }
 
+        this.setId(jsonObject.getString("id"));
         this.setFrom(new Date(Long.parseLong(jsonObject.getString("from"))));
         this.setTo(new Date(Long.parseLong(jsonObject.getString("to"))));
         JSONArray jsonArray = jsonObject.getJSONArray("stories");
@@ -53,6 +57,14 @@ public class Iteration implements JsonAble {
         for (Object now : jsonArray) {
             this.addStory(now.toString());
         }
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public Date getFrom() {

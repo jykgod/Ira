@@ -11,6 +11,15 @@ repositories {
     mavenCentral()
 }
 
+sourceSets {
+    main {
+        resources {
+            srcDir 'src/main/resources'
+            srcDir 'src/main/clojure'
+        }
+    }
+}
+
 dependencies {
     compile (project(":IraCore"))
     testCompile group: 'junit', name: 'junit', version: '4.11'

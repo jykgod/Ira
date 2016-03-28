@@ -1,7 +1,6 @@
 package service.net;
 
 import javafx.util.Pair;
-import model.db.DBClient;
 import model.db.event.Event;
 import model.log.LogManager;
 

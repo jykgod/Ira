@@ -1,3 +1,4 @@
 <model.config>
     <type path="/clojure.xml">model.config.ClojureConfig</type>
+    <type path="/gateway.xml">model.config.GatewayConfig</type>
 </model.config>

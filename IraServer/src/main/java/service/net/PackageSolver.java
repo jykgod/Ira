@@ -1,5 +1,6 @@
 package service.net;
 
+import model.config.GatewayConfig;
 import model.log.LogManager;
 import net.server.AbstractServer;
 import net.tool.connectionManager.ConnectionManager;
@@ -31,6 +32,9 @@ public class PackageSolver extends AbstractServer {
     @Override
     public ConnectionStatus whenInit() {
         LogManager.getLogManager().writeLog("log", "connect", this.getConnectionMessage().getSocket().socket().getInetAddress());
+        if (!GatewayConfig.getConfig().getGatewayIp().equals(this.getConnectionMessage().getSocket().socket().getInetAddress().toString())) {
+            return ConnectionStatus.CLOSE;
+        }
         this.packageReader = new LadderProtocolReader(this.getConnectionMessage().getSocket());
         this.packageWriter = new LadderProtocolWriter(this.getConnectionMessage().getSocket());
         SessionManager.getSessionManager().registerSession(this.getConnectionMessage().getSocket().socket());

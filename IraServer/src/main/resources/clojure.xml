@@ -1,6 +1,7 @@
 <code>
     <path>/tools/ClojureManager.clj</path>
     <path>/tools/MessageHelper.clj</path>
+    <path>/tools/SessionHelper.clj</path>
 
     <path>/UserLogic.clj</path>
 </code>

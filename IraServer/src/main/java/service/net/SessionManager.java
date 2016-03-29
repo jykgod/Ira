@@ -14,7 +14,7 @@ import java.util.Random;
  * Created by xlo on 2015/11/4.
  * it's the session manager
  */
-class SessionManager {
+public class SessionManager {
     private Map<Socket, SessionMessage> sessionMessage;
 
     private static SessionManager sessionManager;
@@ -34,7 +34,7 @@ class SessionManager {
         return sessionManager;
     }
 
-    public void registerSession(Socket socket) {
+    void registerSession(Socket socket) {
         this.sessionMessage.put(socket, new SessionMessage());
         SessionMessage sessionMessage = this.sessionMessage.get(socket);
         sessionMessage.setSessionID(Math.abs(new Random().nextLong()));
@@ -45,7 +45,7 @@ class SessionManager {
         return this.sessionMessage.get(socket);
     }
 
-    public void removeSession(Socket socket) {
+    void removeSession(Socket socket) {
         this.sessionMessage.remove(socket);
     }
 

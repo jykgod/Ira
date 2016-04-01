@@ -44,7 +44,7 @@ public class PackageSolver extends AbstractServer {
             SocketChannel socket = this.getConnectionMessage().getSocket();
             try {
                 if (socket.finishConnect()) {
-                    this.addMessage(ProtocolBuilder.testCommand());
+                    this.addMessage(ProtocolBuilder.getSessionId());
                     return getNextStatusWhenPackageEnd();
                 } else {
                     return ConnectionStatus.CONNECTING;

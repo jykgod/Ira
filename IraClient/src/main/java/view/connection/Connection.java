@@ -2,7 +2,9 @@ package view.connection;
 
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
+import com.intellij.uiDesigner.core.Spacer;
 import model.config.ConnectionConfig;
+import model.data.ConnectionData;
 import net.server.Client;
 import net.tool.connectionSolver.ConnectionMessageImpl;
 import service.net.PackageSolver;
@@ -48,6 +50,7 @@ public class Connection implements UIPage {
         Client client = Client.getNewClient("client");
         Client.getInstance("client", 2);
         PackageSolver packageSolver = new PackageSolver(new ConnectionMessageImpl());
+        ConnectionData.getConnectionData().setPackageSolver(packageSolver);
         client.connect(this.IPTextField.getText(), Integer.parseInt(this.portFormattedTextField.getText()),
                 packageSolver);
     }
@@ -103,7 +106,7 @@ public class Connection implements UIPage {
     private void $$$setupUI$$$() {
         createUIComponents();
         connectionPanel = new JPanel();
-        connectionPanel.setLayout(new GridLayoutManager(4, 2, new Insets(0, 0, 0, 0), -1, -1));
+        connectionPanel.setLayout(new GridLayoutManager(5, 2, new Insets(0, 0, 0, 0), -1, -1));
         final JLabel label1 = new JLabel();
         label1.setText("IP");
         label1.setDisplayedMnemonic('I');
@@ -131,7 +134,9 @@ public class Connection implements UIPage {
         connectButton.setText("connect");
         connectButton.setMnemonic('C');
         connectButton.setDisplayedMnemonicIndex(0);
-        connectionPanel.add(connectButton, new GridConstraints(3, 0, 1, 2, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        connectionPanel.add(connectButton, new GridConstraints(4, 0, 1, 2, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        final Spacer spacer1 = new Spacer();
+        connectionPanel.add(spacer1, new GridConstraints(3, 0, 1, 2, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL, 1, GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
         label1.setLabelFor(IPTextField);
         label2.setLabelFor(portFormattedTextField);
     }

@@ -3,6 +3,8 @@ package main;
 import model.config.ConfigManager;
 import view.PageManager;
 import view.connection.Connection;
+import view.connection.Login;
+import view.connection.TestPage;
 
 import java.io.IOException;
 
@@ -17,6 +19,9 @@ public class Main {
 
         PageManager.getPageManager().showFrame(200, 100);
 
+        PageManager.getPageManager().addPage("test", new TestPage());
+
+        PageManager.getPageManager().addPage("login", new Login());
         PageManager.getPageManager().addPage("connection", new Connection());
         PageManager.getPageManager().showPage("connection");
     }

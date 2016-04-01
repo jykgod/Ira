@@ -40,7 +40,7 @@ public class PageManager {
     public synchronized void showPage(String pageName) {
         UIPage uiPage = this.uiPageMap.get(pageName);
         if (nowPage != null) {
-            this.jFrame.remove(uiPage.getPanel());
+            this.jFrame.remove(nowPage.getPanel());
             this.nowPage.destroy();
         }
         this.nowPage = uiPage;

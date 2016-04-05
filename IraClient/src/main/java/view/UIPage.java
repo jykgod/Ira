@@ -8,9 +8,7 @@ import javax.swing.*;
  */
 public interface UIPage {
 
-    void lock();
-
-    void unlock();
+    void setEnable(boolean enable);
 
     void create();
 

@@ -11,7 +11,7 @@
     (let [json (. JSONObject fromObject (new String message))
           pageManager (. PageManager getPageManager)]
       (.setSessionID connectionData (.getString json "result"))
-      (.unlockNowPage pageManager)
+      (.setCurrentPageEnable pageManager true)
       (.showPage pageManager "login")))
 
   (defn login
@@ -32,7 +32,7 @@
     [_ _ _]
 
     (let [pageManager (. PageManager getPageManager)]
-      (.unlockNowPage pageManager)
+      (.setCurrentPageEnable pageManager true)
       (.showPage pageManager "test"))
     true)
   )

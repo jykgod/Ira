@@ -31,7 +31,7 @@ public class Connection implements UIPage {
         $$$setupUI$$$();
         connectButton.addActionListener(e -> {
             try {
-                PageManager.getPageManager().lockNowPage();
+                PageManager.getPageManager().setCurrentPageEnable( false );
                 startClient();
             } catch (Exception e2) {
                 e2.printStackTrace();
@@ -60,16 +60,7 @@ public class Connection implements UIPage {
     }
 
     @Override
-    public void lock() {
-        setEnabled(false);
-    }
-
-    @Override
-    public void unlock() {
-        setEnabled(true);
-    }
-
-    private void setEnabled(boolean enabled) {
+    public void setEnable(boolean enabled) {
         this.IPTextField.setEnabled(enabled);
         this.portFormattedTextField.setEnabled(enabled);
         this.useEncryptionCheckBox.setEnabled(enabled);

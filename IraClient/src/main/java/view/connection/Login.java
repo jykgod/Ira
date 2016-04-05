@@ -25,23 +25,14 @@ public class Login implements UIPage {
     public Login() {
         registerButton.addActionListener(e -> PageManager.getPageManager().showPage("register"));
         loginButton.addActionListener(e -> {
-            PageManager.getPageManager().lockNowPage();
+            PageManager.getPageManager().setCurrentPageEnable( false );
             ConnectionData.getConnectionData().getPackageSolver().addMessage(ProtocolBuilder
                     .login(this.usernameTextField.getText(), new String(passwordPasswordField.getPassword())));
         });
     }
 
     @Override
-    public void lock() {
-        setEnable(false);
-    }
-
-    @Override
-    public void unlock() {
-        setEnable(true);
-    }
-
-    private void setEnable(boolean enabled) {
+    public void setEnable(boolean enabled) {
         usernameTextField.setEnabled(enabled);
         passwordPasswordField.setEnabled(enabled);
         loginButton.setEnabled(enabled);

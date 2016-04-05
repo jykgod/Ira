@@ -15,12 +15,7 @@ public class TestPage implements UIPage {
     private JPanel panel1;
 
     @Override
-    public void lock() {
-
-    }
-
-    @Override
-    public void unlock() {
+    public void setEnable(boolean enable) {
 
     }
 

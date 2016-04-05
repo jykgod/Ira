@@ -17,7 +17,7 @@ public class PageManager {
     }
 
     private JFrame jFrame;
-    private UIPage CurrentPage;
+    private UIPage currentPage;
     private Map<String, UIPage> uiPageMap;
 
     private PageManager() {
@@ -39,23 +39,23 @@ public class PageManager {
 
     public synchronized void showPage(String pageName) {
         UIPage uiPage = this.uiPageMap.get(pageName);
-        if (CurrentPage != null) {
-            this.jFrame.remove(CurrentPage.getPanel());
-            this.CurrentPage.destroy();
+        if (currentPage != null) {
+            this.jFrame.remove(currentPage.getPanel());
+            this.currentPage.destroy();
         }
-        this.CurrentPage = uiPage;
-        this.CurrentPage.create();
+        this.currentPage = uiPage;
+        this.currentPage.create();
         this.jFrame.add(uiPage.getPanel());
         this.jFrame.pack();
     }
 
     public synchronized void setCurrentPageEnable(boolean enable) {
-        if (CurrentPage != null) {
-            this.CurrentPage.setEnable(enable);
+        if (currentPage != null) {
+            this.currentPage.setEnable(enable);
         }
     }
 
     public UIPage getCurrentPage() {
-        return CurrentPage;
+        return currentPage;
     }
 }

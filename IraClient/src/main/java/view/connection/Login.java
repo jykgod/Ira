@@ -25,7 +25,7 @@ public class Login implements UIPage {
     public Login() {
         registerButton.addActionListener(e -> PageManager.getPageManager().showPage("register"));
         loginButton.addActionListener(e -> {
-            PageManager.getPageManager().setCurrentPageEnable( false );
+            PageManager.getPageManager().setCurrentPageEnable(false);
             ConnectionData.getConnectionData().getPackageSolver().addMessage(ProtocolBuilder
                     .login(this.usernameTextField.getText(), new String(passwordPasswordField.getPassword())));
         });

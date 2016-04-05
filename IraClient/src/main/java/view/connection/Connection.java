@@ -31,7 +31,7 @@ public class Connection implements UIPage {
         $$$setupUI$$$();
         connectButton.addActionListener(e -> {
             try {
-                PageManager.getPageManager().setCurrentPageEnable( false );
+                PageManager.getPageManager().setCurrentPageEnable(false);
                 startClient();
             } catch (Exception e2) {
                 e2.printStackTrace();

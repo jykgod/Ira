@@ -5,4 +5,7 @@ package model;
  * it's the story type
  */
 public enum StoryType {
+
+    STORY
+
 }

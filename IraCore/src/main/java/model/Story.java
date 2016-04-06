@@ -1,5 +1,6 @@
 package model;
 
+import model.db.DBTable;
 import model.exception.JsonClassNotMatchException;
 import net.sf.json.JSONObject;
 
@@ -7,36 +8,27 @@ import net.sf.json.JSONObject;
  * Created by xlo on 16/3/21.
  * it's the story
  */
-public class Story implements JsonAble {
+public class Story extends WatcherEntity implements JsonAble {
 
-    private String id;
-    private String title;
-    private String iterationId;
-    private String epicId;
-    private StoryType storyType;
-    private String reporter;
-    private String assignee;
-    private Priority priority;
-    private int point;
-
-    public Story() {
+    public Story(DBTable.DBData data) {
+        super(data);
     }
 
     public Story(String id, String title, String iterationId, String epicId, StoryType storyType, String reporter, String assignee, Priority priority, int point) {
-        this.id = id;
-        this.title = title;
-        this.iterationId = iterationId;
-        this.epicId = epicId;
-        this.storyType = storyType;
-        this.reporter = reporter;
-        this.assignee = assignee;
-        this.priority = priority;
-        this.point = point;
+        this.setId(id);
+        this.setTitle(title);
+        this.setIterationId(iterationId);
+        this.setEpicId(epicId);
+        this.setStoryType(storyType);
+        this.setReporter(reporter);
+        this.setAssignee(assignee);
+        this.setPriority(priority);
+        this.setPoint(point);
     }
 
     @Override
-    public String toJsonString() {
-        JSONObject jsonObject = new JSONObject();
+    public JSONObject toJson() {
+        JSONObject jsonObject = super.toJson();
         jsonObject.put("clazz", this.getClass().getName());
         jsonObject.put("id", this.getId());
         jsonObject.put("title", this.getTitle());
@@ -47,11 +39,12 @@ public class Story implements JsonAble {
         jsonObject.put("assignee", this.getAssignee());
         jsonObject.put("priority", this.getPriority().toString());
         jsonObject.put("point", this.getPoint());
-        return jsonObject.toString();
+        return jsonObject;
     }
 
     @Override
     public void updateValueFromJson(String jsonString) throws JsonClassNotMatchException {
+        super.updateValueFromJson(jsonString);
         JSONObject jsonObject = JSONObject.fromObject(jsonString);
         if (!jsonObject.getString("clazz").equals(this.getClass().getName())) {
             throw new JsonClassNotMatchException();
@@ -69,74 +62,74 @@ public class Story implements JsonAble {
     }
 
     public String getId() {
-        return id;
+        return this.objectMap.get("_id").toString();
     }
 
     public void setId(String id) {
-        this.id = id;
+        this.objectMap.put("_id", id);
     }
 
     public String getTitle() {
-        return title;
+        return this.objectMap.get("title").toString();
     }
 
     public void setTitle(String title) {
-        this.title = title;
+        this.objectMap.put("title", title);
     }
 
     public String getIterationId() {
-        return iterationId;
+        return this.objectMap.get("iterationId").toString();
     }
 
     public void setIterationId(String iterationId) {
-        this.iterationId = iterationId;
+        this.objectMap.put("iterationId", iterationId);
     }
 
     public String getEpicId() {
-        return epicId;
+        return this.objectMap.get("epicId").toString();
     }
 
     public void setEpicId(String epicId) {
-        this.epicId = epicId;
+        this.objectMap.put("epicId", epicId);
     }
 
     public StoryType getStoryType() {
-        return storyType;
+        return StoryType.valueOf(this.objectMap.get("storyType").toString());
     }
 
     public void setStoryType(StoryType storyType) {
-        this.storyType = storyType;
+        this.objectMap.put("storyType", storyType);
     }
 
     public String getReporter() {
-        return reporter;
+        return this.objectMap.get("reporter").toString();
     }
 
     public void setReporter(String reporter) {
-        this.reporter = reporter;
+        this.objectMap.put("reporter", reporter);
     }
 
     public String getAssignee() {
-        return assignee;
+        return this.objectMap.get("assignee").toString();
     }
 
     public void setAssignee(String assignee) {
-        this.assignee = assignee;
+        this.objectMap.put("assignee", assignee);
     }
 
     public Priority getPriority() {
-        return priority;
+        return Priority.valueOf(this.objectMap.get("priority").toString());
     }
 
     public void setPriority(Priority priority) {
-        this.priority = priority;
+        this.objectMap.put("priority", priority);
     }
 
     public int getPoint() {
-        return point;
+        return Integer.parseInt(this.objectMap.get("point").toString());
     }
 
     public void setPoint(int point) {
-        this.point = point;
+        this.objectMap.put("point", point);
     }
 }

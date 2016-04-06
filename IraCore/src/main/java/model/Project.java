@@ -1,5 +1,6 @@
 package model;
 
+import model.db.DBTable;
 import model.exception.JsonClassNotMatchException;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -11,39 +12,36 @@ import java.util.List;
  * Created by xlo on 16/3/21.
  * it's the project
  */
-public class Project implements JsonAble {
-
-    private String id;
-    private String projectName;
-    private List<String> iterations;
+public class Project extends WatcherEntity implements JsonAble {
 
     public Project() {
+        this.objectMap.put("iterations", new ArrayList<String>());
     }
 
-    public Project(String projectName) {
-        this.projectName = projectName;
-        this.iterations = new ArrayList<>();
+    public Project(DBTable.DBData data) {
+        super(data);
     }
 
-    public Project(String projectName, List<String> iterations) {
-        this.projectName = projectName;
-        this.iterations = iterations;
+    public Project(String projectName, ArrayList<String> iterations) {
+        this.setProjectName(projectName);
+        this.objectMap.put("iterations", iterations);
     }
 
     @Override
-    public String toJsonString() {
-        JSONObject jsonObject = new JSONObject();
+    public JSONObject toJson() {
+        JSONObject jsonObject = super.toJson();
         jsonObject.put("clazz", this.getClass().getName());
         jsonObject.put("id", this.getId());
         jsonObject.put("projectName", this.getProjectName());
         JSONArray jsonArray = new JSONArray();
-        jsonArray.addAll(this.iterations);
+        jsonArray.addAll(this.getIterations());
         jsonObject.put("iterations", jsonArray);
-        return jsonObject.toString();
+        return jsonObject;
     }
 
     @Override
     public void updateValueFromJson(String jsonString) throws JsonClassNotMatchException {
+        super.updateValueFromJson(jsonString);
         JSONObject jsonObject = JSONObject.fromObject(jsonString);
         if (!jsonObject.getString("clazz").equals(this.getClass().getName())) {
             throw new JsonClassNotMatchException();
@@ -52,37 +50,47 @@ public class Project implements JsonAble {
         this.setId(jsonObject.getString("id"));
         this.setProjectName(jsonObject.getString("projectName"));
         JSONArray jsonArray = jsonObject.getJSONArray("iterations");
-        this.iterations.clear();
+        this.clearIterations();
         for (Object now : jsonArray) {
             this.addIteration(now.toString());
         }
     }
 
     public String getId() {
-        return id;
+        return this.objectMap.get("_id").toString();
     }
 
     public void setId(String id) {
-        this.id = id;
+        this.objectMap.put("_id", id);
     }
 
     public List<String> getIterations() {
-        return new ArrayList<>(iterations);
+        ArrayList list = ((ArrayList)this.objectMap.get("iterations"));
+        ArrayList<String> result = new ArrayList<>();
+        for (Object now : list) {
+            result.add(now.toString());
+        }
+        return result;
     }
 
     public void addIteration(String iteration) {
-        this.iterations.add(iteration);
+        //noinspection unchecked
+        ((ArrayList)this.objectMap.get("iterations")).add(iteration);
     }
 
     public void removeIteration(String iteration) {
-        this.iterations.remove(iteration);
+        ((ArrayList)this.objectMap.get("iterations")).remove(iteration);
     }
 
     public String getProjectName() {
-        return projectName;
+        return this.objectMap.get("projectName").toString();
     }
 
     private void setProjectName(String projectName) {
-        this.projectName = projectName;
+        this.objectMap.put("projectName", projectName);
+    }
+
+    private void clearIterations() {
+        ((ArrayList)this.objectMap.get("iterations")).clear();
     }
 }

@@ -5,4 +5,7 @@ package model;
  * it's the Priority
  */
 public enum Priority {
+
+    MINOR
+
 }

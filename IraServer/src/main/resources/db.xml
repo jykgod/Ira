@@ -1,0 +1,6 @@
+<dbs>
+    <connection>model.db.virtual.IraVirtualConnection</connection>
+    <db name="gateway" type="default">
+        <collection type="model.db.StoryCollection">story</collection>
+    </db>
+</dbs>

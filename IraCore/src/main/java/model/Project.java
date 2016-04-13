@@ -22,7 +22,8 @@ public class Project extends WatcherEntity implements JsonAble {
         super(data);
     }
 
-    public Project(String projectName, ArrayList<String> iterations) {
+    public Project(String id, String projectName, ArrayList<String> iterations) {
+        this.setId(id);
         this.setProjectName(projectName);
         this.objectMap.put("iterations", iterations);
     }

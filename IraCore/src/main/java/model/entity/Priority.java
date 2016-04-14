@@ -1,4 +1,4 @@
-package model;
+package model.entity;
 
 /**
  * Created by xlo on 16/3/21.

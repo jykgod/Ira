@@ -1,7 +1,5 @@
 package model.db;
 
-import model.Entity;
-import model.Iteration;
 import net.sf.json.JSONArray;
 import org.bson.Document;
 
@@ -15,7 +13,7 @@ import java.util.stream.Collectors;
  * Created by xlo on 15-11-1.
  * it's the wallet collection
  */
-public abstract class IraCollection<T extends Entity> extends DBTable {
+public abstract class IraCollection extends DBTable {
 
     public static void closeConnect() throws IOException {
         virtualDBConnection.close();
@@ -41,8 +39,29 @@ public abstract class IraCollection<T extends Entity> extends DBTable {
         this.collection.find().forEach(this.collection::deleteOne);
     }
 
-    private void insertData(Document document) {
+    protected void insertData(Document document) {
         this.lockCollection();
         this.insert(document);
+    }
+
+    public List<DBData> getAllDataList(Document document) {
+        this.lockCollection();
+        List<Map<String, Object>> iterator = this.collection.find(document);
+        return iterator.stream().map(this::addDocumentToUsing).collect(Collectors.toCollection(LinkedList::new));
+    }
+
+    public List<DBData> getAllDataListData(Document document) {
+        this.lockCollection();
+        List<Map<String, Object>> iterator = this.collection.find(document);
+        this.unlockCollection();
+        return iterator.stream().map(this::getDocumentNotUsing).collect(Collectors.toCollection(LinkedList::new));
+    }
+
+    public void loadFromString(String string) {
+        JSONArray jsonArray = JSONArray.fromObject(string);
+        for (Object object : jsonArray) {
+            Document document = Document.parse(object.toString());
+            this.insertData(document);
+        }
     }
 }

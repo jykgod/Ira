@@ -34,7 +34,7 @@ public class SessionManager {
         return sessionManager;
     }
 
-    void registerSession(Socket socket) {
+    public void registerSession(Socket socket) {
         this.sessionMessage.put(socket, new SessionMessage());
         SessionMessage sessionMessage = this.sessionMessage.get(socket);
         sessionMessage.setSessionID(Math.abs(new Random().nextLong()));

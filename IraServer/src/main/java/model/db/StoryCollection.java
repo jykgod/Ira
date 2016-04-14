@@ -1,6 +1,6 @@
 package model.db;
 
-import model.Story;
+import model.entity.Story;
 import org.bson.Document;
 
 import java.util.List;
@@ -13,8 +13,7 @@ import java.util.Map;
 public class StoryCollection extends IraCollection {
 
     public void addStory(Story story) {
-        this.lockCollection();
-        this.insert(new Document(story.getObject()));
+        this.insertData(new Document(story.getObject()));
     }
 
     public Story getStory(String id) {

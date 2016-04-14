@@ -1,6 +1,6 @@
 package model.db;
 
-import model.Iteration;
+import model.entity.Iteration;
 import org.junit.Test;
 
 import java.util.ArrayList;

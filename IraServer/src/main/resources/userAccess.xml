@@ -1,0 +1,5 @@
+<user>
+    <access command="controller.ServerManageLogic">
+        <need>root</need>
+    </access>
+</user>

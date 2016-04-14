@@ -1,5 +1,6 @@
-package model;
+package model.entity;
 
+import model.JsonAble;
 import model.db.DBTable;
 import model.exception.JsonClassNotMatchException;
 import net.sf.json.JSONObject;
@@ -10,14 +11,16 @@ import net.sf.json.JSONObject;
  */
 public class Story extends WatcherEntity implements JsonAble {
 
+    public Story() {
+    }
+
     public Story(DBTable.DBData data) {
         super(data);
     }
 
-    public Story(String id, String title, String iterationId, String epicId, StoryType storyType, String reporter, String assignee, Priority priority, int point) {
+    public Story(String id, String title, String epicId, StoryType storyType, String reporter, String assignee, Priority priority, int point) {
         this.setId(id);
         this.setTitle(title);
-        this.setIterationId(iterationId);
         this.setEpicId(epicId);
         this.setStoryType(storyType);
         this.setReporter(reporter);
@@ -32,7 +35,6 @@ public class Story extends WatcherEntity implements JsonAble {
         jsonObject.put("clazz", this.getClass().getName());
         jsonObject.put("id", this.getId());
         jsonObject.put("title", this.getTitle());
-        jsonObject.put("iterationId", this.getIterationId());
         jsonObject.put("epicId", this.getEpicId());
         jsonObject.put("storyType", this.getStoryType().toString());
         jsonObject.put("reporter", this.getReporter());
@@ -52,7 +54,6 @@ public class Story extends WatcherEntity implements JsonAble {
 
         this.setId(jsonObject.getString("id"));
         this.setTitle(jsonObject.getString("title"));
-        this.setIterationId(jsonObject.getString("iterationId"));
         this.setEpicId(jsonObject.getString("epicId"));
         this.setStoryType(StoryType.valueOf(jsonObject.getString("storyType")));
         this.setReporter(jsonObject.getString("reporter"));
@@ -75,14 +76,6 @@ public class Story extends WatcherEntity implements JsonAble {
 
     public void setTitle(String title) {
         this.objectMap.put("title", title);
-    }
-
-    public String getIterationId() {
-        return this.objectMap.get("iterationId").toString();
-    }
-
-    public void setIterationId(String iterationId) {
-        this.objectMap.put("iterationId", iterationId);
     }
 
     public String getEpicId() {

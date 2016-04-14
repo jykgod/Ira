@@ -1,5 +1,6 @@
-package model;
+package model.entity;
 
+import model.JsonAble;
 import model.db.DBTable;
 import model.exception.JsonClassNotMatchException;
 import net.sf.json.JSONArray;
@@ -15,6 +16,7 @@ import java.util.List;
 public class WatcherEntity extends Entity implements JsonAble {
 
     public WatcherEntity() {
+        this.objectMap.put("watcher", new ArrayList<>());
     }
 
     public WatcherEntity(DBTable.DBData data) {
@@ -40,7 +42,7 @@ public class WatcherEntity extends Entity implements JsonAble {
         JSONArray jsonArray = jsonObject.getJSONArray("watcher");
         this.clearWatcher();
         for (Object now : jsonArray) {
-            this.addIteration(now.toString());
+            this.addWatcher(now.toString());
         }
     }
 
@@ -53,7 +55,7 @@ public class WatcherEntity extends Entity implements JsonAble {
         return result;
     }
 
-    public void addIteration(String watcher) {
+    public void addWatcher(String watcher) {
         //noinspection unchecked
         ((ArrayList)this.objectMap.get("watcher")).add(watcher);
     }

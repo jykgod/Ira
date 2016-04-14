@@ -1,6 +1,6 @@
 package model.db;
 
-import model.Project;
+import model.entity.Project;
 import org.bson.Document;
 
 import java.util.List;
@@ -13,8 +13,7 @@ import java.util.Map;
 public class ProjectCollection extends IraCollection {
 
     public void addProject(Project project) {
-        this.lockCollection();
-        this.insert(new Document(project.getObject()));
+        this.insertData(new Document(project.getObject()));
     }
 
     public Project getProject(String id) {

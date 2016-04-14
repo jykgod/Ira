@@ -1,6 +1,6 @@
 package main;
 
-import model.Iteration;
+import model.entity.Iteration;
 import model.exception.JsonClassNotMatchException;
 
 import java.util.Date;

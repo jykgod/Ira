@@ -1,6 +1,6 @@
 package model.db;
 
-import model.Iteration;
+import model.entity.Iteration;
 import org.bson.Document;
 
 import java.util.List;
@@ -13,8 +13,7 @@ import java.util.Map;
 public class IterationCollection extends IraCollection {
 
     public void addIteration(Iteration iteration) {
-        this.lockCollection();
-        this.insert(new Document(iteration.getObject()));
+        this.insertData(new Document(iteration.getObject()));
     }
 
     public Iteration getIteration(String id) {

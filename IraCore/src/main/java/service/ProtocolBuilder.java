@@ -1,6 +1,8 @@
 package service;
 
-import model.data.ConnectionData;
+import model.entity.Priority;
+import model.entity.Story;
+import model.entity.StoryType;
 import net.sf.json.JSONObject;
 import service.encrypt.PasswordEncoder;
 
@@ -8,16 +10,16 @@ import service.encrypt.PasswordEncoder;
  * Created by xlo on 16/2/23.
  * it's the protocol builder
  */
-public final class ProtocolBuilder {
+public class ProtocolBuilder {
 
     public static byte[] getSessionId() {
         return "/getSessionID#{}".getBytes();
     }
 
-    public static byte[] login(String username, String password) {
+    public static byte[] login(String username, String password, String sessionID) {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("username", username);
-        jsonObject.put("password", PasswordEncoder.encode(password + ConnectionData.getConnectionData().getSessionID()));
+        jsonObject.put("password", PasswordEncoder.encode(password + sessionID));
         String body = jsonObject.toString();
         return ("/login#" + body).getBytes();
     }
@@ -27,6 +29,11 @@ public final class ProtocolBuilder {
         jsonObject.put("appName", appName);
         String body = jsonObject.toString();
         return ("/useApp#" + body).getBytes();
+    }
+
+    public static byte[] addStory(String id, String title, String epicId, StoryType storyType, String reporter, String assignee, Priority priority, int point) {
+        String body = new Story(id, title, epicId, storyType, reporter, assignee, priority, point).toJsonString();
+        return ("addStory#" + body).getBytes();
     }
 
     public static byte[] testCommand() {

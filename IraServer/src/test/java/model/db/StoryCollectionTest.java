@@ -1,8 +1,8 @@
 package model.db;
 
-import model.Priority;
-import model.Story;
-import model.StoryType;
+import model.entity.Priority;
+import model.entity.Story;
+import model.entity.StoryType;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -15,7 +15,7 @@ public class StoryCollectionTest extends DBTesting {
 
     @Test
     public void should_have_story_after_add_story() throws Exception {
-        Story insertStory = new Story("1", "1", "1", "1", StoryType.STORY, "", "", Priority.MINOR, 1);
+        Story insertStory = new Story("1", "1", "1", StoryType.STORY, "", "", Priority.MINOR, 1);
         StoryCollection storyAddCollection = new StoryCollection();
         storyAddCollection.addStory(insertStory);
         storyAddCollection.submit();

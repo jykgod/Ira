@@ -1,6 +1,6 @@
 package model.db;
 
-import model.Project;
+import model.entity.Project;
 import org.junit.Test;
 
 import java.util.ArrayList;

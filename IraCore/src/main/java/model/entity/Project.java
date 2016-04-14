@@ -1,5 +1,6 @@
-package model;
+package model.entity;
 
+import model.JsonAble;
 import model.db.DBTable;
 import model.exception.JsonClassNotMatchException;
 import net.sf.json.JSONArray;

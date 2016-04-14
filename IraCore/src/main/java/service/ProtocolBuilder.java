@@ -36,6 +36,14 @@ public class ProtocolBuilder {
         return ("addStory#" + body).getBytes();
     }
 
+    public static byte[] addWatcherToStory(String id, String username) {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("id", id);
+        jsonObject.put("username", username);
+        String body = jsonObject.toString();
+        return ("addWatcherToStory#" + body).getBytes();
+    }
+
     public static byte[] testCommand() {
         return "/testCommand#{}".getBytes();
     }

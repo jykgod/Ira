@@ -32,16 +32,26 @@ public abstract class LogicTesting implements NeedClearDBTesting {
         clearDB();
     }
 
-    public NoSendEvent loginApp(String username) throws Exception {
+    protected void logout() {
+        SessionManager.getSessionManager().registerSession(this.socket);
+    }
+
+    protected NoSendEvent loginApp(String username) throws Exception {
         NoSendNetMessageSolver noSendNetMessageSolver = new NoSendNetMessageSolver();
         return (NoSendEvent) noSendNetMessageSolver
                 .solveMessage(TestingProtocolBuilder.loginApp(username), socket);
     }
 
-    public NoSendEvent addStory(String id, String title, String epicId, StoryType storyType, String reporter, String assignee, Priority priority, int point) throws Exception {
+    protected NoSendEvent addStory(String id, String title, String epicId, StoryType storyType, String reporter, String assignee, Priority priority, int point) throws Exception {
         NoSendNetMessageSolver noSendNetMessageSolver = new NoSendNetMessageSolver();
         return (NoSendEvent) noSendNetMessageSolver
                 .solveMessage(TestingProtocolBuilder.addStory(id, title, epicId, storyType, reporter, assignee, priority, point), socket);
+    }
+
+    protected NoSendEvent addWatcherToStory(String id, String username) throws Exception {
+        NoSendNetMessageSolver noSendNetMessageSolver = new NoSendNetMessageSolver();
+        return (NoSendEvent) noSendNetMessageSolver
+                .solveMessage(TestingProtocolBuilder.addWatcherToStory(id, username), socket);
     }
 
 }

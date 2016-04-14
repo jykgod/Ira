@@ -4,5 +4,6 @@
         <collection type="model.db.StoryCollection">story</collection>
         <collection type="model.db.IterationCollection">iteration</collection>
         <collection type="model.db.ProjectCollection">project</collection>
+        <collection type="model.db.UserLicenseCollection">license</collection>
     </db>
 </dbs>

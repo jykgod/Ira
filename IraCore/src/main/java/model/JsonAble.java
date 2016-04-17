@@ -1,6 +1,7 @@
 package model;
 
 import model.exception.JsonClassNotMatchException;
+import net.sf.json.JSONObject;
 
 /**
  * Created by xlo on 16/3/21.
@@ -8,7 +9,11 @@ import model.exception.JsonClassNotMatchException;
  */
 public interface JsonAble {
 
-    String toJsonString();
+    JSONObject toJson();
+
+    default String toJsonString() {
+        return toJson().toString();
+    }
 
     void updateValueFromJson(String jsonString) throws JsonClassNotMatchException;
 

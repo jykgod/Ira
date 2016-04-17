@@ -1,5 +1,6 @@
 (ns tools.SessionHelper
-  (:import (service.net SessionManager)))
+  (:import (service.net SessionManager)
+           (model.config UserAccessConfig)))
 
 (let [sessionManager (. SessionManager getSessionManager)]
   (defn getSessionMessage
@@ -20,5 +21,9 @@
 
   (defn getPackageServer
     [socket]
-    (.getPackageServer sessionManager socket)))
+    (.getPackageServer sessionManager socket))
+
+  (defn haveAccess
+    [socket command]
+    (and (isLogin socket) (.haveLicense (. UserAccessConfig getConfig) (getUsername socket) command))))
 

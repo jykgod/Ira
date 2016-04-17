@@ -4,4 +4,5 @@
     <path>/tools/SessionHelper.clj</path>
 
     <path>/UserLogic.clj</path>
+    <path>/StoryLogic.clj</path>
 </code>

@@ -8,9 +8,9 @@ import java.net.Socket;
  * Created by xlo on 16-1-1.
  * it's the abstract net message solver
  */
-class NetMessageSolver {
+public class NetMessageSolver {
 
-    SendEvent solveMessage(byte[] body, Socket socket) throws Exception {
+    public SendEvent solveMessage(byte[] body, Socket socket) throws Exception {
         byte[] url, message;
         for (int i = 0; i < body.length; i++) {
             if (body[i] == '#') {
@@ -32,7 +32,7 @@ class NetMessageSolver {
         return event;
     }
 
-    private SendEvent getEvent(Socket socket) {
+    protected SendEvent getEvent(Socket socket) {
         return new SendEvent(socket);
     }
 
